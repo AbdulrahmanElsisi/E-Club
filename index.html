@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Gnite - Ignite your entrepreneurial journey</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#banner">
+                    <img src="Logo.jpg" alt="E-Gnite Event Logo" class="nav-logo">
+                </a>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="#banner" class="nav-link active">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#schedule" class="nav-link">Schedule</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#speakers" class="nav-link">Speakers</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#scoreboard" class="nav-link">Score board</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#faq" class="nav-link">FAQ</a>
+                </li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Banner Section -->
+    <section id="banner" class="banner-section">
+        <div class="banner-container">
+            <img src="banner1.png" alt="E-Gnite Event Banner" class="banner-image">
+        </div>
+    </section>
+
+    <!-- Home Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        E-Gnite<br>
+                        3RD EDITION
+                    </h1>
+                    <p class="hero-subtitle">Ignite your entrepreneurial journey</p>
+                    <div class="event-dates">
+                        <div class="date-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Opening Event: 28/08</span>
+                        </div>
+                        <div class="date-item">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>Bootcamp & Competition: 31/08 - 04/09</span>
+                        </div>
+                    </div>
+                    <div class="hero-actions">
+                        <button class="register-btn" onclick="openComingSoon()">
+                            <i class="fas fa-user-plus"></i>
+                            Register Now
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="video-container">
+                        <video muted class="background-video" autoplay loop>
+                            <source src="Home_section_video (online-video-cutter.com).mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Highlights Section -->
+    <section class="highlights-section">
+        <div class="container">
+            <div class="highlights-grid">
+                <div class="highlight-card">
+                    <h3>Day 1</h3>
+                    <div class="highlight-image">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <p>A brief description of Day 1</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>Day 2</h3>
+                    <div class="highlight-image">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <p>A brief description of Day 2</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>Day 3</h3>
+                    <div class="highlight-image">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <p>A brief description of Day 3</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section id="schedule" class="schedule-section">
+        <div class="container">
+            <h2 class="section-title">Event Schedule</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">
+                        <span class="day">28</span>
+                        <span class="month">AUG</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Opening Event</h3>
+                        <p class="time"><i class="fas fa-clock"></i> 09:00 AM - 05:00 PM</p>
+                        <p>Kickoff ceremony and networking session</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">
+                        <span class="day">31</span>
+                        <span class="month">AUG</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Bootcamp Day 1</h3>
+                        <p class="time"><i class="fas fa-clock"></i> 10:00 AM - 06:00 PM</p>
+                        <p>Workshop sessions and team formation</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">
+                        <span class="day">01</span>
+                        <span class="month">SEP</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Bootcamp Day 2</h3>
+                        <p class="time"><i class="fas fa-clock"></i> 09:00 AM - 07:00 PM</p>
+                        <p>Mentorship and project development</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">
+                        <span class="day">04</span>
+                        <span class="month">SEP</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Competition Finals</h3>
+                        <p class="time"><i class="fas fa-clock"></i> 02:00 PM - 08:00 PM</p>
+                        <p>Final presentations and awards ceremony</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Speakers Section -->
+    <section id="speakers" class="speakers-section">
+        <div class="container">
+            <h2 class="section-title">Featured Speakers</h2>
+            <div class="speakers-grid">
+                <div class="speaker-card">
+                    <div class="speaker-image">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3>Dr. Ahmed Hassan</h3>
+                    <p class="speaker-title">CEO, TechStart Egypt</p>
+                    <p class="speaker-bio">Leading expert in entrepreneurship and innovation with over 15 years of experience in the startup ecosystem.</p>
+                    <div class="speaker-social">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="speaker-card">
+                    <div class="speaker-image">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h3>Sarah Mahmoud</h3>
+                    <p class="speaker-title">Founder, GreenTech Solutions</p>
+                    <p class="speaker-bio">Pioneer in sustainable technology and social entrepreneurship, recognized for innovative business models.</p>
+                    <div class="speaker-social">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="speaker-card">
+                    <div class="speaker-image">
+                        <i class="fas fa-user-cog"></i>
+                    </div>
+                    <h3>Omar Khalil</h3>
+                    <p class="speaker-title">Investment Director, Nile Ventures</p>
+                    <p class="speaker-bio">Expert in venture capital and startup funding, helping entrepreneurs scale their businesses globally.</p>
+                    <div class="speaker-social">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="speaker-card">
+                    <div class="speaker-image">
+                        <i class="fas fa-user-chart"></i>
+                    </div>
+                    <h3>Nour El-Din</h3>
+                    <p class="speaker-title">Strategy Consultant, McKinsey</p>
+                    <p class="speaker-bio">Business strategy expert specializing in digital transformation and market entry strategies.</p>
+                    <div class="speaker-social">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scoreboard Section -->
+    <section id="scoreboard" class="scoreboard-section">
+        <div class="container">
+            <h2 class="section-title">Live Competition Scoreboard</h2>
+            <div class="scoreboard-container">
+                <div class="scoreboard-header">
+                    <h3>Current Rankings</h3>
+                    <div class="last-updated">
+                        <i class="fas fa-sync-alt"></i>
+                        Last updated: <span id="last-updated">Just now</span>
+                    </div>
+                </div>
+                <div class="scoreboard-table">
+                    <div class="table-header">
+                        <div class="rank-col">Rank</div>
+                        <div class="team-col">Team</div>
+                        <div class="score-col">Score</div>
+                        <div class="progress-col">Progress</div>
+                    </div>
+                    <div class="table-body">
+                        <div class="table-row">
+                            <div class="rank">1</div>
+                            <div class="team">
+                                <div class="team-name">Innovation Squad</div>
+                                <div class="team-members">Ahmed, Sara, Omar</div>
+                            </div>
+                            <div class="score">95</div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="table-row">
+                            <div class="rank">2</div>
+                            <div class="team">
+                                <div class="team-name">Tech Pioneers</div>
+                                <div class="team-members">Nour, Khalil, Mariam</div>
+                            </div>
+                            <div class="score">88</div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 88%"></div>
+                            </div>
+                        </div>
+                        <div class="table-row">
+                            <div class="rank">3</div>
+                            <div class="team">
+                                <div class="team-name">Future Makers</div>
+                                <div class="team-members">Youssef, Dina, Ali</div>
+                            </div>
+                            <div class="score">82</div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 82%"></div>
+                            </div>
+                        </div>
+                        <div class="table-row">
+                            <div class="rank">4</div>
+                            <div class="team">
+                                <div class="team-name">Startup Stars</div>
+                                <div class="team-members">Hana, Karim, Layla</div>
+                            </div>
+                            <div class="score">78</div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 78%"></div>
+                            </div>
+                        </div>
+                        <div class="table-row">
+                            <div class="rank">5</div>
+                            <div class="team">
+                                <div class="team-name">Digital Dreamers</div>
+                                <div class="team-members">Rania, Tarek, Salma</div>
+                            </div>
+                            <div class="score">75</div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners-section">
+        <div class="container">
+            <h2 class="section-title">Our Main Partners</h2>
+            <div class="partners-grid">
+                <img src="Main_partners.png" alt="Partner 1">
+            </div>
+        </div>
+    </section>
+
+    <!-- Previous Sponsors Section -->
+    <section class="sponsors-section">
+        <div class="container">
+            <h2 class="section-title">Previous Sponsors</h2>
+            <div class="sponsors-grid">
+                <img src="Previous_sponsors.png" alt="Partner 1">
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What is E-Gnite?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>E-Gnite is a 3-day entrepreneurial event that brings together students, professionals, and experts to learn, network, and compete in innovation challenges. It's designed to ignite your entrepreneurial journey through workshops, mentorship, and hands-on experience.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Who can participate?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>E-Gnite is open to university students, recent graduates, and young professionals interested in entrepreneurship. No prior experience is required - we welcome participants from all backgrounds and skill levels.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How much does it cost to attend?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>E-Gnite is completely free to attend! All workshops, materials, and meals during the event are provided at no cost to participants. We believe in making entrepreneurship education accessible to everyone.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What should I bring?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Please bring your laptop, charger, and enthusiasm! We'll provide all workshop materials and resources. Comfortable clothing is recommended as you'll be actively participating in sessions.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How do I register?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Registration will open soon! Click the "Register Now" button on our website to sign up. Spaces are limited, so we encourage early registration to secure your spot.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Will there be prizes?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! The winning teams will receive cash prizes, mentorship opportunities, and potential investment connections. Additionally, all participants will receive certificates and valuable networking opportunities.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Stay Connected</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Get Updates</h3>
+                    <p>Subscribe to our newsletter for the latest updates about E-Gnite</p>
+                    <form class="newsletter-form" id="newsletter-form">
+                        <div class="form-group">
+                            <input type="email" placeholder="Enter your email" required>
+                            <button type="submit">
+                                <i class="fas fa-paper-plane"></i>
+                                Subscribe
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="social-links">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>E-Gnite</h4>
+                    <p>Igniting entrepreneurial journeys since 2021</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#schedule">Schedule</a></li>
+                        <li><a href="#speakers">Speakers</a></li>
+                        <li><a href="#scoreboard">Scoreboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-envelope"></i> info@egnite.com</p>
+                    <p><i class="fas fa-phone"></i> +20 123 456 789</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 E-Gnite. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Coming Soon Modal -->
+    <div class="modal" id="coming-soon-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeComingSoon()">&times;</span>
+            <div class="modal-body">
+                <i class="fas fa-clock modal-icon"></i>
+                <h2>Coming Soon!</h2>
+                <p>Registration will be available soon. Stay tuned for updates!</p>
+                <form class="notify-form">
+                    <input type="email" placeholder="Enter your email for early access" required>
+                    <button type="submit">Notify Me</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
