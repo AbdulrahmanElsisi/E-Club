@@ -416,6 +416,48 @@ function logPerformance() {
     }
 }
 
+
+// ---------------------------------
+
+// ...existing code...
+// Team Card Fantasy Zoom
+document.addEventListener('DOMContentLoaded', function () {
+    const teamCards = document.querySelectorAll('.team-card');
+    const overlay = document.getElementById('teamOverlay');
+    let activeCard = null;
+
+    teamCards.forEach(card => {
+        card.addEventListener('click', function (e) {
+            if (activeCard) return;
+            card.classList.add('active');
+            overlay.classList.add('active');
+            activeCard = card;
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    overlay.addEventListener('click', function () {
+        if (activeCard) {
+            activeCard.classList.remove('active');
+            overlay.classList.remove('active');
+            activeCard = null;
+            document.body.style.overflow = '';
+        }
+    });
+
+    // Optional: ESC key closes the zoom
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && activeCard) {
+            activeCard.classList.remove('active');
+            overlay.classList.remove('active');
+            activeCard = null;
+            document.body.style.overflow = '';
+        }
+    });
+});
+// ...existing code...
+
+
 logPerformance();
 
 // Export functions for global access
