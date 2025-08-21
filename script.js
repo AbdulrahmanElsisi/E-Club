@@ -1,0 +1,669 @@
+// DOM Elements
+const navbar = document.getElementById('navbar');
+const navMenu = document.getElementById('nav-menu');
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.querySelectorAll('.nav-link');
+const backToTopBtn = document.getElementById('back-to-top');
+const modal = document.getElementById('coming-soon-modal');
+const newsletterForm = document.getElementById('newsletter-form');
+const notifyForm = document.querySelector('.notify-form');
+
+// Navigation functionality
+function toggleMobileMenu() {
+    navMenu.classList.toggle('active');
+    hamburger.classList.toggle('active');
+}
+
+function closeMobileMenu() {
+    navMenu.classList.remove('active');
+    hamburger.classList.remove('active');
+}
+
+// Smooth scrolling for navigation links
+function smoothScroll(e) {
+    e.preventDefault();
+    const targetId = this.getAttribute('href');
+    const targetSection = document.querySelector(targetId);
+    
+    if (targetSection) {
+        const offsetTop = targetSection.offsetTop - 70; // Account for fixed navbar
+        window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+        });
+    }
+    
+    // Close mobile menu if open
+    closeMobileMenu();
+}
+
+// Active navigation highlighting
+function updateActiveNavLink() {
+    const scrollPosition = window.scrollY + 100;
+    
+    navLinks.forEach(link => {
+        const targetId = link.getAttribute('href');
+        if (targetId && targetId !== '#') {
+            const targetSection = document.querySelector(targetId);
+            if (targetSection) {
+                const sectionTop = targetSection.offsetTop;
+                const sectionBottom = sectionTop + targetSection.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                }
+            }
+        }
+    });
+}
+
+// Back to top button functionality
+function toggleBackToTop() {
+    if (window.scrollY > 300) {
+        backToTopBtn.classList.add('show');
+    } else {
+        backToTopBtn.classList.remove('show');
+    }
+}
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+// FAQ Accordion functionality
+function toggleFAQ(element) {
+    const faqItem = element.parentElement;
+    const answer = faqItem.querySelector('.faq-answer');
+    const isActive = element.classList.contains('active');
+    
+    // Close all other FAQ items
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.classList.remove('active');
+        question.nextElementSibling.classList.remove('active');
+    });
+    
+    // Toggle current FAQ item
+    if (!isActive) {
+        element.classList.add('active');
+        answer.classList.add('active');
+    }
+}
+
+// Modal functionality
+function openComingSoon() {
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeComingSoon() {
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// Close modal when clicking outside
+function closeModalOnOutsideClick(e) {
+    if (e.target === modal) {
+        closeComingSoon();
+    }
+}
+
+// Form submission handlers
+function handleNewsletterSubmit(e) {
+    e.preventDefault();
+    const email = e.target.querySelector('input[type="email"]').value;
+    
+    // Show loading state
+    const submitBtn = e.target.querySelector('button');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<span class="loading"></span> Subscribing...';
+    submitBtn.disabled = true;
+    
+    // Simulate API call
+    setTimeout(() => {
+        showNotification('Thank you for subscribing! You\'ll receive updates about E-Gnite.', 'success');
+        e.target.reset();
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    }, 2000);
+}
+
+function handleNotifySubmit(e) {
+    e.preventDefault();
+    const email = e.target.querySelector('input[type="email"]').value;
+    
+    // Show loading state
+    const submitBtn = e.target.querySelector('button');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<span class="loading"></span> Submitting...';
+    submitBtn.disabled = true;
+    
+    // Simulate API call
+    setTimeout(() => {
+        showNotification('You\'ll be notified when registration opens!', 'success');
+        e.target.reset();
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        closeComingSoon();
+    }, 2000);
+}
+
+// Notification system
+function showNotification(message, type = 'info') {
+    // Remove existing notifications
+    const existingNotification = document.querySelector('.notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+    
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i>
+            <span>${message}</span>
+            <button onclick="this.parentElement.parentElement.remove()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    `;
+    
+    // Add styles
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#10b981' : '#3b82f6'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        z-index: 3000;
+        animation: slideInRight 0.3s ease;
+        max-width: 400px;
+    `;
+    
+    // Add animation keyframes
+    if (!document.querySelector('#notification-styles')) {
+        const style = document.createElement('style');
+        style.id = 'notification-styles';
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // Add notification content styles
+    notification.querySelector('.notification-content').style.cssText = `
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    `;
+    
+    notification.querySelector('button').style.cssText = `
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        margin-left: auto;
+        padding: 0;
+        font-size: 1rem;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.remove();
+        }
+    }, 5000);
+}
+
+// Scoreboard update simulation
+function updateScoreboard() {
+    const lastUpdated = document.getElementById('last-updated');
+    const scores = document.querySelectorAll('.score');
+    const progressBars = document.querySelectorAll('.progress-bar');
+    
+    // Simulate score updates
+    scores.forEach((score, index) => {
+        const currentScore = parseInt(score.textContent);
+        const newScore = Math.max(0, currentScore + Math.floor(Math.random() * 10) - 5);
+        score.textContent = newScore;
+        
+        // Update progress bar
+        const progressBar = progressBars[index];
+        const percentage = Math.min(100, (newScore / 100) * 100);
+        progressBar.style.width = percentage + '%';
+    });
+    
+    // Update timestamp
+    const now = new Date();
+    lastUpdated.textContent = now.toLocaleTimeString();
+}
+
+// Intersection Observer for animations
+function setupAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+    
+    // Observe elements for animation
+    const animatedElements = document.querySelectorAll('.speaker-card, .timeline-item, .highlight-card, .partner-card, .sponsor-card');
+    animatedElements.forEach(el => {
+        el.classList.add('fade-in');
+        observer.observe(el);
+    });
+}
+
+// Search functionality
+function setupSearch() {
+    const searchIcon = document.querySelector('.search-icon');
+    if (searchIcon) {
+        searchIcon.addEventListener('click', (e) => {
+            e.preventDefault();
+            showNotification('Search functionality coming soon!', 'info');
+        });
+    }
+}
+
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Event listeners
+    hamburger.addEventListener('click', toggleMobileMenu);
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', smoothScroll);
+    });
+    
+    backToTopBtn.addEventListener('click', scrollToTop);
+    
+    // Close modal events
+    modal.addEventListener('click', closeModalOnOutsideClick);
+    
+    // Form submissions
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', handleNewsletterSubmit);
+    }
+    
+    if (notifyForm) {
+        notifyForm.addEventListener('submit', handleNotifySubmit);
+    }
+    
+    // Scroll events
+    window.addEventListener('scroll', () => {
+        updateActiveNavLink();
+        toggleBackToTop();
+    });
+    
+    // Setup animations
+    setupAnimations();
+    
+    // Setup search
+    setupSearch();
+    
+    // Initialize scoreboard updates (every 30 seconds)
+    setInterval(updateScoreboard, 30000);
+    
+    // Initial scoreboard update
+    updateScoreboard();
+    
+    // Add some interactive features
+    addInteractiveFeatures();
+});
+
+// Additional interactive features
+function addInteractiveFeatures() {
+    // Parallax effect for hero section
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const parallaxElements = document.querySelectorAll('.shape');
+        
+        parallaxElements.forEach((element, index) => {
+            const speed = 0.5 + (index * 0.1);
+            element.style.transform = `translateY(${scrolled * speed}px)`;
+        });
+    });
+    
+    // Hover effects for cards
+    const cards = document.querySelectorAll('.speaker-card, .highlight-card, .partner-card, .sponsor-card');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+    
+   
+}
+
+// Utility functions
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Optimized scroll handler
+const optimizedScrollHandler = debounce(() => {
+    updateActiveNavLink();
+    toggleBackToTop();
+}, 10);
+
+window.addEventListener('scroll', optimizedScrollHandler);
+
+// Keyboard navigation support
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeComingSoon();
+    }
+});
+
+// Service Worker registration (for PWA features)
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('SW registered: ', registration);
+            })
+            .catch(registrationError => {
+                console.log('SW registration failed: ', registrationError);
+            });
+    });
+}
+
+// Performance monitoring
+function logPerformance() {
+    if ('performance' in window) {
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const perfData = performance.getEntriesByType('navigation')[0];
+                console.log('Page load time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
+            }, 0);
+        });
+    }
+}
+
+
+// ---------------------------------
+
+// ...existing code...
+// Team Card Fantasy Zoom
+document.addEventListener('DOMContentLoaded', function () {
+    const teamCards = document.querySelectorAll('.team-card');
+    const overlay = document.getElementById('teamOverlay');
+    let activeCard = null;
+
+    teamCards.forEach(card => {
+        card.addEventListener('click', function (e) {
+            if (activeCard) return;
+            card.classList.add('active');
+            overlay.classList.add('active');
+            activeCard = card;
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    overlay.addEventListener('click', function () {
+        if (activeCard) {
+            activeCard.classList.remove('active');
+            overlay.classList.remove('active');
+            activeCard = null;
+            document.body.style.overflow = '';
+        }
+    });
+
+    // Optional: ESC key closes the zoom
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && activeCard) {
+            activeCard.classList.remove('active');
+            overlay.classList.remove('active');
+            activeCard = null;
+            document.body.style.overflow = '';
+        }
+    });
+});
+// ...existing code...
+
+
+
+// Points System START
+const CLIENT_ID = '337522995168-ga3mhhioc23h0tms8sdndsh96g22kii0.apps.googleusercontent.com'; // ضع هنا الـ Client ID بتاعك
+const API_KEY = 'AIzaSyCamH1pe-7dtYQACxMlK_L2GFQVhzCRcVw'; // ضع هنا الـ API Key بتاعك
+const SPREADSHEET_ID = '1be5i4z-sey25FkKZItjM0zULyS2i0r7xdrB1p76v6OE1be5i4z-sey25FkKZItjM0zULyS2i0r7xdrB1p76v6OE'; // ضع هنا الـ Spreadsheet ID بتاعك
+const RANGE = 'Sheet1!A1:C2'; // النطاق الذي يحتوي على البيانات (تأكد أن البيانات في هذا النطاق)
+
+function start() {
+    // تحميل الـ Google API
+    gapi.load('client:auth2', initClient);
+}
+
+// تهيئة الـ Google API Client
+function initClient() {
+    gapi.client.init({
+        apiKey: API_KEY,
+        clientId: CLIENT_ID,
+        scope: 'https://www.googleapis.com/auth/spreadsheets.readonly',
+        discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
+    }).then(function () {
+        console.log("GAPI client loaded");
+        loadSheetData(); // تحميل بيانات الـ Google Sheets بعد تحميل الـ Client
+    });
+}
+
+// تحميل البيانات من Google Sheets
+function loadSheetData() {
+    gapi.client.sheets.spreadsheets.values.get({
+        spreadsheetId: SPREADSHEET_ID,
+        range: RANGE
+    }).then(function (response) {
+        const data = response.result.values;
+        populateLeaderboard(data); // استخدام البيانات لتعبئة الـ leaderboard
+        updateLastUpdated(); // تحديث وقت آخر تحديث
+    }, function (error) {
+        console.error('Error loading data from Google Sheets: ', error);
+    });
+}
+
+// ملء الـ leaderboard باستخدام البيانات من Google Sheets
+function populateLeaderboard(data) {
+    const tableBody = document.querySelector('.table-body');
+    tableBody.innerHTML = ''; // مسح المحتوى الحالي في الجدول
+
+    // لكل صف في الـ data (البيانات المسترجعة من Sheets)، هنعمل row جديد
+    data.forEach((row, index) => {
+        const rank = index + 1; // تحديد الرتبة بناءً على ترتيب الصف
+        const teamName = row[0];
+        const teamMembers = row[1];
+        const score = row[2];
+
+        const rowDiv = document.createElement('div');
+        rowDiv.classList.add('table-row');
+
+        // إضافة الرتبة
+        const rankCol = document.createElement('div');
+        rankCol.classList.add('rank');
+        rankCol.textContent = rank;
+        rowDiv.appendChild(rankCol);
+
+        // إضافة اسم الفريق وأعضاء الفريق
+        const teamCol = document.createElement('div');
+        teamCol.classList.add('team');
+        const teamNameDiv = document.createElement('div');
+        teamNameDiv.classList.add('team-name');
+        teamNameDiv.textContent = teamName;
+        const teamMembersDiv = document.createElement('div');
+        teamMembersDiv.classList.add('team-members');
+        teamMembersDiv.textContent = teamMembers;
+        teamCol.appendChild(teamNameDiv);
+        teamCol.appendChild(teamMembersDiv);
+        rowDiv.appendChild(teamCol);
+
+        // إضافة النقاط
+        const scoreCol = document.createElement('div');
+        scoreCol.classList.add('score');
+        scoreCol.textContent = score;
+        rowDiv.appendChild(scoreCol);
+
+        // إضافة شريط التقدم
+        const progressCol = document.createElement('div');
+        progressCol.classList.add('progress');
+        const progressBar = document.createElement('div');
+        progressBar.classList.add('progress-bar');
+        progressBar.style.width = `${score}%`;
+        progressCol.appendChild(progressBar);
+        rowDiv.appendChild(progressCol);
+
+        // إضافة السطر إلى الجدول
+        tableBody.appendChild(rowDiv);
+    });
+}
+
+// تحديث وقت آخر تحديث
+function updateLastUpdated() {
+    const lastUpdatedElement = document.getElementById('last-updated');
+    const currentTime = new Date().toLocaleTimeString();
+    lastUpdatedElement.textContent = currentTime;
+}
+
+// استدعاء دالة البداية
+start();
+
+
+/**
+ * 
+ * const CLIENT_ID = 'YOUR_CLIENT_ID'; // Client ID الخاص بـ OAuth
+const API_KEY = 'YOUR_API_KEY'; // API Key من Google
+const SPREADSHEET_ID = 'YOUR_SPREADSHEET_ID'; // ID الخاص بالـ Google Sheet
+const RANGE = 'Sheet1!A2:D6'; // النطاق الذي يحتوي على البيانات (تأكد أن البيانات في هذا النطاق)
+
+function start() {
+    gapi.load('client:auth2', initClient);
+}
+
+function initClient() {
+    gapi.client.init({
+        apiKey: API_KEY,
+        clientId: CLIENT_ID,
+        scope: 'https://www.googleapis.com/auth/spreadsheets.readonly',
+        discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
+    }).then(function () {
+        console.log("GAPI client loaded");
+        loadSheetData();
+    });
+}
+
+function loadSheetData() {
+    gapi.client.sheets.spreadsheets.values.get({
+        spreadsheetId: SPREADSHEET_ID,
+        range: RANGE
+    }).then(function (response) {
+        const data = response.result.values;
+        // ترتيب البيانات بناءً على النقاط (من الأكبر للأصغر)
+        data.sort((a, b) => b[2] - a[2]); // ترتيب من الأكبر إلى الأصغر
+        populateLeaderboard(data);
+        updateLastUpdated();
+    }, function (error) {
+        console.error('Error loading data from Google Sheets: ', error);
+    });
+}
+
+function populateLeaderboard(data) {
+    const tableBody = document.querySelector('.table-body');
+    tableBody.innerHTML = '';
+
+    // لكل صف في البيانات، نقوم بإضافة سطر جديد في الجدول
+    data.forEach((row, index) => {
+        const rank = index + 1; // تحديد الرتبة بناءً على ترتيب الصف بعد الترتيب
+        const teamName = row[0];
+        const teamMembers = row[1];
+        const score = row[2];
+
+        const rowDiv = document.createElement('div');
+        rowDiv.classList.add('table-row');
+
+        const rankCol = document.createElement('div');
+        rankCol.classList.add('rank');
+        rankCol.textContent = rank;
+        rowDiv.appendChild(rankCol);
+
+        const teamCol = document.createElement('div');
+        teamCol.classList.add('team');
+        const teamNameDiv = document.createElement('div');
+        teamNameDiv.classList.add('team-name');
+        teamNameDiv.textContent = teamName;
+        const teamMembersDiv = document.createElement('div');
+        teamMembersDiv.classList.add('team-members');
+        teamMembersDiv.textContent = teamMembers;
+        teamCol.appendChild(teamNameDiv);
+        teamCol.appendChild(teamMembersDiv);
+        rowDiv.appendChild(teamCol);
+
+        const scoreCol = document.createElement('div');
+        scoreCol.classList.add('score');
+        scoreCol.textContent = score;
+        rowDiv.appendChild(scoreCol);
+
+        const progressCol = document.createElement('div');
+        progressCol.classList.add('progress');
+        const progressBar = document.createElement('div');
+        progressBar.classList.add('progress-bar');
+        progressBar.style.width = `${score}%`;
+        progressCol.appendChild(progressBar);
+        rowDiv.appendChild(progressCol);
+
+        tableBody.appendChild(rowDiv);
+    });
+}
+
+function updateLastUpdated() {
+    const lastUpdatedElement = document.getElementById('last-updated');
+    const currentTime = new Date().toLocaleTimeString();
+    lastUpdatedElement.textContent = currentTime;
+}
+
+start();
+
+ */
+
+// Points System END
+
+
+logPerformance();
+
+// Export functions for global access
+window.openComingSoon = openComingSoon;
+window.closeComingSoon = closeComingSoon;
+window.toggleFAQ = toggleFAQ; 
