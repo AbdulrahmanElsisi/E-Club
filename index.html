@@ -711,43 +711,45 @@
   }
 
   function populateLeaderboard(data) {
-    const tableBody = document.querySelector('.table-body');
-    tableBody.innerHTML = '';
-    data.forEach((row, index) => {
-      const rank = index + 1;
-      const teamName = row[0];
-      const teamMembers = row[1];
-      const score = row[2];
+  const tableBody = document.querySelector('.table-body');
+  tableBody.innerHTML = '';
 
-      const rowDiv = document.createElement('div');
-      rowDiv.classList.add('table-row');
+  data.forEach((row, index) => {
+    const rank = index + 1;
+    const teamName = row[0] || "Unknown Team";
+    const teamMembers = row[1] || "N/A";
+    const score = row[2] || 0;   // لو مفيش score يبقى صفر
 
-      const rankCol = document.createElement('div');
-      rankCol.classList.add('rank');
-      rankCol.textContent = rank;
-      rowDiv.appendChild(rankCol);
+    const rowDiv = document.createElement('div');
+    rowDiv.classList.add('table-row');
 
-      const teamCol = document.createElement('div');
-      teamCol.classList.add('team');
-      teamCol.innerHTML = `<div>${teamName}</div><div>${teamMembers}</div>`;
-      rowDiv.appendChild(teamCol);
+    const rankCol = document.createElement('div');
+    rankCol.classList.add('rank');
+    rankCol.textContent = rank;
+    rowDiv.appendChild(rankCol);
 
-      const scoreCol = document.createElement('div');
-      scoreCol.classList.add('score');
-      scoreCol.textContent = score;
-      rowDiv.appendChild(scoreCol);
+    const teamCol = document.createElement('div');
+    teamCol.classList.add('team');
+    teamCol.innerHTML = `<div>${teamName}</div><div>${teamMembers}</div>`;
+    rowDiv.appendChild(teamCol);
 
-      const progressCol = document.createElement('div');
-      progressCol.classList.add('progress');
-      const progressBar = document.createElement('div');
-      progressBar.classList.add('progress-bar');
-      progressBar.style.width = `${score}%`;
-      progressCol.appendChild(progressBar);
-      rowDiv.appendChild(progressCol);
+    const scoreCol = document.createElement('div');
+    scoreCol.classList.add('score');
+    scoreCol.textContent = score;
+    rowDiv.appendChild(scoreCol);
 
-      tableBody.appendChild(rowDiv);
-    });
-  }
+    const progressCol = document.createElement('div');
+    progressCol.classList.add('progress');
+    const progressBar = document.createElement('div');
+    progressBar.classList.add('progress-bar');
+    progressBar.style.width = `${score}%`; // هيبقى صفر لو مفيش قيمة
+    progressCol.appendChild(progressBar);
+    rowDiv.appendChild(progressCol);
+
+    tableBody.appendChild(rowDiv);
+  });
+}
+
 
   function updateLastUpdated() {
     const lastUpdatedElement = document.getElementById('last-updated');
