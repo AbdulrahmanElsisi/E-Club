@@ -276,6 +276,12 @@
             </style>
         </div>
     </section>
+
+
+  <h2 style="text-align:center;">Data from Google Sheet</h2>
+  <div id="output"></div>
+
+    
     <section id="scoreboard" class="scoreboard-section">
         <div class="container">
           <h2 class="section-title">Live Competition Scoreboard</h2>
@@ -720,8 +726,28 @@ function updateLastUpdated() {
   document.getElementById('last-updated').textContent = new Date().toLocaleTimeString();
 }
 
-document.addEventListener("DOMContentLoaded", loadSheetData);
-      console.log("Data from Sheet:", data.values);
+//-----
+       const values =  const values;
+       function displayData(data) {
+      let table = "<table>";
+      // أول صف = عناوين الجدول
+      table += "<tr><th>Title / Group</th><th>Members</th><th>Score</th></tr>";
+
+      // باقي الصفوف = البيانات
+      data.forEach(row => {
+        table += "<tr>";
+        row.forEach(cell => {
+          table += `<td>${cell}</td>`;
+        });
+        table += "</tr>";
+      });
+
+      table += "</table>";
+      document.getElementById("output").innerHTML = table;
+    }
+
+    // استدعاء الدالة
+    displayData(values);
   </script>
 
 </body>
