@@ -680,83 +680,47 @@
   const CLIENT_ID = '337522995168-ga3mhhioc23h0tms8sdndsh96g22kii0.apps.googleusercontent.com';
   const API_KEY = 'AIzaSyCamH1pe-7dtYQACxMlK_L2GFQVhzCRcVw';
   const SPREADSHEET_ID = '1be5i4z-sey25FkKZItjM0zULyS2i0r7xdrB1p76v6OE'; 
-  const RANGE = 'Sheet1!A1:C'; // من A2 علشان يتجاهل العناوين
+ const RANGE = "Sheet1!A2:C";
 
-  function start() {
-    gapi.load('client:auth2', initClient);
-  }
-
-  function initClient() {
-    gapi.client.init({
-      apiKey: API_KEY,
-      clientId: CLIENT_ID,
-      scope: 'https://www.googleapis.com/auth/spreadsheets.readonly',
-      discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
-    }).then(() => {
-      loadSheetData();
-    });
-  }
-
-  function loadSheetData() {
-    gapi.client.sheets.spreadsheets.values.get({
-      spreadsheetId: SPREADSHEET_ID,
-      range: RANGE
-    }).then(response => {
-      const data = response.result.values;
-      populateLeaderboard(data);
+function loadSheetData() {
+  fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`)
+    .then(res => res.json())
+    .then(data => {
+      console.log("Data from Sheet:", data.values); // Debug
+      populateLeaderboard(data.values);
       updateLastUpdated();
-    }, error => {
-      console.error('Error:', error);
-    });
-  }
+    })
+    .catch(err => console.error("Error:", err));
+}
 
-  function populateLeaderboard(data) {
+function populateLeaderboard(data) {
   const tableBody = document.querySelector('.table-body');
   tableBody.innerHTML = '';
-
   data.forEach((row, index) => {
     const rank = index + 1;
-    const teamName = row[0] || "Unknown Team";
+    const teamName = row[0] || "Unknown";
     const teamMembers = row[1] || "N/A";
-    const score = row[2] || 0;   // لو مفيش score يبقى صفر
+    const score = row[2] || 0;
 
     const rowDiv = document.createElement('div');
     rowDiv.classList.add('table-row');
 
-    const rankCol = document.createElement('div');
-    rankCol.classList.add('rank');
-    rankCol.textContent = rank;
-    rowDiv.appendChild(rankCol);
-
-    const teamCol = document.createElement('div');
-    teamCol.classList.add('team');
-    teamCol.innerHTML = `<div>${teamName}</div><div>${teamMembers}</div>`;
-    rowDiv.appendChild(teamCol);
-
-    const scoreCol = document.createElement('div');
-    scoreCol.classList.add('score');
-    scoreCol.textContent = score;
-    rowDiv.appendChild(scoreCol);
-
-    const progressCol = document.createElement('div');
-    progressCol.classList.add('progress');
-    const progressBar = document.createElement('div');
-    progressBar.classList.add('progress-bar');
-    progressBar.style.width = `${score}%`; // هيبقى صفر لو مفيش قيمة
-    progressCol.appendChild(progressBar);
-    rowDiv.appendChild(progressCol);
+    rowDiv.innerHTML = `
+      <div class="rank">${rank}</div>
+      <div class="team"><div>${teamName}</div><div>${teamMembers}</div></div>
+      <div class="score">${score}</div>
+      <div class="progress"><div class="progress-bar" style="width:${score}%"></div></div>
+    `;
 
     tableBody.appendChild(rowDiv);
   });
 }
 
+function updateLastUpdated() {
+  document.getElementById('last-updated').textContent = new Date().toLocaleTimeString();
+}
 
-  function updateLastUpdated() {
-    const lastUpdatedElement = document.getElementById('last-updated');
-    lastUpdatedElement.textContent = new Date().toLocaleTimeString();
-  }
-
-  document.addEventListener("DOMContentLoaded", start);
+document.addEventListener("DOMContentLoaded", loadSheetData);
   </script>
 
 </body>
