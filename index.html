@@ -697,7 +697,13 @@ function loadSheetData() {
 function populateLeaderboard(data) {
   const tableBody = document.querySelector('.table-body');
   tableBody.innerHTML = '';
-  data.forEach((row, index) => {
+
+  // حوّل السكور لرقم ورتّب البيانات نزولياً
+  const sortedData = data.sort((a, b) => {
+    return Number(b[2]) - Number(a[2]); 
+  });
+
+  sortedData.forEach((row, index) => {
     const rank = index + 1;
     const teamName = row[0] || "Unknown";
     const teamMembers = row[1] || "N/A";
