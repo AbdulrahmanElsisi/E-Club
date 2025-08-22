@@ -326,10 +326,10 @@ document.addEventListener('DOMContentLoaded', function() {
     setupSearch();
     
     // Initialize scoreboard updates (every 30 seconds)
-    setInterval(updateScoreboard, 30000);
+    //setInterval(updateScoreboard, 30000);
     
     // Initial scoreboard update
-    updateScoreboard();
+    //updateScoreboard();
     
     // Add some interactive features
     addInteractiveFeatures();
