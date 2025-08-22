@@ -462,7 +462,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // Points System START
 const CLIENT_ID = '337522995168-ga3mhhioc23h0tms8sdndsh96g22kii0.apps.googleusercontent.com'; // ضع هنا الـ Client ID بتاعك
 const API_KEY = 'AIzaSyCamH1pe-7dtYQACxMlK_L2GFQVhzCRcVw'; // ضع هنا الـ API Key بتاعك
-const SPREADSHEET_ID = '1be5i4z-sey25FkKZItjM0zULyS2i0r7xdrB1p76v6OE1be5i4z-sey25FkKZItjM0zULyS2i0r7xdrB1p76v6OE'; // ضع هنا الـ Spreadsheet ID بتاعك
+const SPREADSHEET_ID = '1be5i4z-sey25FkKZItjM0zULyS2i0r7xdrB1p76v6OE'; // ضع هنا الـ Spreadsheet ID بتاعك
 const RANGE = 'Sheet1!A1:C2'; // النطاق الذي يحتوي على البيانات (تأكد أن البيانات في هذا النطاق)
 
 function start() {
