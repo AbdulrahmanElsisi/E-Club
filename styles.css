@@ -554,6 +554,7 @@ body {
 
 .progress {
     background: #e2e8f0;
+    height: 10px;
     border-radius: 5px;
     overflow: hidden;
 }
