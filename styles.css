@@ -1338,6 +1338,22 @@ html {
 .team-overlay.active {
     display: block;
 }
+
+
+.agenda-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease;
+}
+
+.agenda-image img:hover {
+  transform: scale(1.03);
+}
+
+
+
 @keyframes overlayFadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
