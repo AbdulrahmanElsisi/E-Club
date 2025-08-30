@@ -16,7 +16,7 @@
         <div class="nav-container">
             <div class="nav-logo">
                 <a href="#banner">
-                    <img src="Logo.jpg" alt="E-Gnite Event Logo" class="nav-logo">
+                    <img src="e-gnite.png" alt="E-Gnite Event Logo" class="nav-logo">
                 </a>
             </div>
             <ul class="nav-menu" id="nav-menu">
@@ -319,7 +319,7 @@
     
     <section id="scoreboard" class="scoreboard-section">
         <div class="container">
-          <h2 class="section-title">Live Competition Scoreboard</h2>
+          <h2 class="section-title">Live School Rankings Scoreboard</h2>
           <div class="scoreboard-container">
             <div class="scoreboard-header">
               <h3>Current Rankings</h3>
@@ -334,11 +334,35 @@
                 <div class="score">Score</div>
                 <div class="progress">Progress</div>
               </div>
-              <div class="table-body"></div>
+              <div class="school-body"></div>
             </div>
           </div>
         </div>
       </section>
+    
+    <section id="university-board" class="scoreboard-section">
+        <div class="container">
+            <h2 class="section-title">Live University Rankings Board</h2>
+            <div class="scoreboard-container">
+            <div class="scoreboard-header">
+                <h3>Current Rankings</h3>
+                <div class="last-updated">
+                Last updated: <span id="last-updated-univ">Just now</span>
+                </div>
+            </div>
+            <div class="scoreboard-table">
+                <div class="table-header table-row">
+                <div class="rank">Rank</div>
+                <div class="team">University</div>
+                <div class="score">Score</div>
+                <div class="progress">Progress</div>
+                </div>
+                <div class="university-body"></div>
+            </div>
+            </div>
+        </div>
+    </section>
+
 
     <!-- Scoreboard Section -->
     <!-- <section id="scoreboard" class="scoreboard-section">
@@ -644,56 +668,105 @@
     
     
     <script src="https://apis.google.com/js/api.js"></script>
+
   <script>
-  const CLIENT_ID = '337522995168-ga3mhhioc23h0tms8sdndsh96g22kii0.apps.googleusercontent.com';
-  const API_KEY = 'AIzaSyCamH1pe-7dtYQACxMlK_L2GFQVhzCRcVw';
-  const SPREADSHEET_ID = '1be5i4z-sey25FkKZItjM0zULyS2i0r7xdrB1p76v6OE'; 
- const RANGE = "Sheet1!A2:C";
-      
-function loadSheetData() {
-  fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`)
-    .then(res => res.json())
-    .then(data => {
-      console.log("Data from Sheet:", data.values); // Debug
-      populateLeaderboard(data.values);
-      updateLastUpdated();
-    })
-    .catch(err => console.error("Error:", err));
-}
+    const CLIENT_ID = '337522995168-ga3mhhioc23h0tms8sdndsh96g22kii0.apps.googleusercontent.com';
+    const API_KEY = 'AIzaSyCamH1pe-7dtYQACxMlK_L2GFQVhzCRcVw';
+    const SPREADSHEET_ID = '1be5i4z-sey25FkKZItjM0zULyS2i0r7xdrB1p76v6OE'; 
+    const RANGE = "Sheet1!A2:C";
+        
+    function loadSheetData() {
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`)
+        .then(res => res.json())
+        .then(data => {
+        console.log("Data from Sheet:", data.values); // Debug
+        populateLeaderboard(data.values);
+        updateLastUpdated();
+        })
+        .catch(err => console.error("Error:", err));
+    }
 
-function populateLeaderboard(data) {
-  const tableBody = document.querySelector('.table-body');
-  tableBody.innerHTML = '';
+    function populateLeaderboard(data) {
+    const tableBody = document.querySelector('.school-body');
+    tableBody.innerHTML = '';
 
-  // رتّب الـ data على حسب السكور نزولياً
-  const sortedData = data.sort((a, b) => (Number(b[2]) || 0) - (Number(a[2]) || 0));
+    // رتّب الـ data على حسب السكور نزولياً
+    const sortedData = data.sort((a, b) => (Number(b[2]) || 0) - (Number(a[2]) || 0));
 
-  sortedData.forEach((row, index) => {
-    const rank = index + 1;
-    const teamName = row[0] || "Unknown";
-    const teamMembers = row[1] || "N/A";
-    const score = Number(row[2]) || 0;  // هنا بيتحول لرقم ولو فاضي يبقى 0
+    sortedData.forEach((row, index) => {
+        const rank = index + 1;
+        const teamName = row[0] || "Unknown";
+        const teamMembers = row[1] || "N/A";
+        const score = Number(row[2]) || 0;  // هنا بيتحول لرقم ولو فاضي يبقى 0
 
-    const rowDiv = document.createElement('div');
-    rowDiv.classList.add('table-row');
+        const rowDiv = document.createElement('div');
+        rowDiv.classList.add('table-row');
 
-    rowDiv.innerHTML = `
-      <div class="rank">${rank}</div>
-      <div class="team"><div>${teamName}</div><div>${teamMembers}</div></div>
-      <div class="score">${score}</div>
-      <div class="progress"><div class="progress-bar" style="width:${score}%"></div></div>
-    `;
+        rowDiv.innerHTML = `
+        <div class="rank">${rank}</div>
+        <div class="team"><div>${teamName}</div><div>${teamMembers}</div></div>
+        <div class="score">${score}</div>
+        <div class="progress"><div class="progress-bar" style="width:${score}%"></div></div>
+        `;
 
-    tableBody.appendChild(rowDiv);
-  });
-}
+        tableBody.appendChild(rowDiv);
+    });
+    }
+    const RANGE_UNIVERSITY = "Sheet2!A2:C";
 
-function updateLastUpdated() {
-  document.getElementById('last-updated').textContent = new Date().toLocaleTimeString();
-}
+    function loadUniversityData() {
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE_UNIVERSITY}?key=${API_KEY}`)
+        .then(res => res.json())
+        .then(data => {
+        console.log("University Data:", data.values); // Debug
+        populateUniversityBoard(data.values);
+        updateLastUpdatedUniv();
+        })
+        .catch(err => console.error("Error Univ:", err));
+    }
 
-document.addEventListener("DOMContentLoaded", loadSheetData);
+    function populateUniversityBoard(data) {
+    const tableBody = document.querySelector('.university-body');
+    tableBody.innerHTML = '';
+
+    const sortedData = data.sort((a, b) => (Number(b[2]) || 0) - (Number(a[2]) || 0));
+
+    sortedData.forEach((row, index) => {
+        const rank = index + 1;
+        const uniName = row[0] || "Unknown";
+        const uniMembers = row[1] || "N/A";
+        const score = Number(row[2]) || 0;
+
+        const rowDiv = document.createElement('div');
+        rowDiv.classList.add('table-row');
+
+        rowDiv.innerHTML = `
+        <div class="rank">${rank}</div>
+        <div class="team"><div>${uniName}</div><div>${uniMembers}</div></div>
+        <div class="score">${score}</div>
+        <div class="progress"><div class="progress-bar" style="width:${score}%"></div></div>
+        `;
+
+        tableBody.appendChild(rowDiv);
+    });
+    }
+
+    function updateLastUpdatedUniv() {
+    document.getElementById('last-updated-univ').textContent = new Date().toLocaleTimeString();
+    }
+    
+    document.addEventListener("DOMContentLoaded", () => {
+    loadSheetData();        // للـ School Board
+    loadUniversityData();   // للـ University Board
+    });
+
+// function updateLastUpdated() {
+//   document.getElementById('last-updated').textContent = new Date().toLocaleTimeString();
+// }
+
+// document.addEventListener("DOMContentLoaded", loadSheetData);
   </script>
+
 
 </body>
 </html> 
