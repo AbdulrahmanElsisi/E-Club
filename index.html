@@ -648,7 +648,7 @@
   const CLIENT_ID = '337522995168-ga3mhhioc23h0tms8sdndsh96g22kii0.apps.googleusercontent.com';
   const API_KEY = 'AIzaSyCamH1pe-7dtYQACxMlK_L2GFQVhzCRcVw';
   const SPREADSHEET_ID = '1be5i4z-sey25FkKZItjM0zULyS2i0r7xdrB1p76v6OE'; 
- const RANGE = "ScoreBoard!A2:C";
+ const RANGE = "Sheet1!A2:C";
       
 function loadSheetData() {
   fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}?key=${API_KEY}`)
