@@ -554,7 +554,7 @@ body {
 
 .progress {
     background: #e2e8f0;
-    height: 10px;
+    height: 20px;
     border-radius: 5px;
     overflow: hidden;
 }
@@ -1339,7 +1339,6 @@ html {
     display: block;
 }
 
-
 .agenda-image img {
   max-width: 100%;
   height: auto;
@@ -1352,10 +1351,10 @@ html {
   transform: scale(1.03);
 }
 
-
-
 @keyframes overlayFadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
+
+
 /* ...existing code... */
